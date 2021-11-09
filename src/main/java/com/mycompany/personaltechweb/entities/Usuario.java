@@ -5,7 +5,6 @@
  */
 package com.mycompany.personaltechweb.entities;
 
-import com.mycompany.personaltechweb.validators.ValidaSexo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -101,7 +100,6 @@ public abstract class Usuario implements Serializable {
     private String email;
 
     @NotBlank
-    @ValidaSexo
     @Size(min = 1, max = 1)
     @Column(name = "TXT_SEXO", length = 1, nullable = false)
     private String sexo;
