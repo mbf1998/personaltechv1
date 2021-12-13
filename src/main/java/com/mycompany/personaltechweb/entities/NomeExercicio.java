@@ -1,5 +1,9 @@
 package com.mycompany.personaltechweb.entities;
 
+/**
+ *
+ * @author MarcosBrasileiro
+ */
 public enum NomeExercicio {
     ABD_REMADOR_ABD_CANIVETE,
     ABD_SUPRA_C_ROTACAO_ABD_OBLIQ,

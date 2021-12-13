@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import static javax.persistence.FetchType.LAZY;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedNativeQueries;
@@ -23,8 +21,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ *
+ * @author MarcosBrasileiro
+ */
+@NamedNativeQueries(
+        {
+            @NamedNativeQuery(
+                    name = PersonalTrainer.MEUSALUNOS,
+                    query = "SELECT * FROM ROOT.TB_USUARIO INNER JOIN ROOT.TB_ALUNO ON ROOT.TB_ALUNO.ID_PT = ?1 WHERE TXT_TIPO_USUARIO = 'A'",
+                    resultSetMapping = "mapping"
+            )
+            
+        }
+)
 @Entity
 @Table(name = "TB_PERSONALTRAINER")
 @DiscriminatorValue(value = "P")
@@ -37,8 +48,27 @@ import org.hibernate.validator.constraints.NotBlank;
     @NamedQuery(
             name  = PersonalTrainer.CONSULTAR_POR_ID,
             query = "SELECT pt FROM Usuario pt WHERE pt.id = ?1"
-    )
+    ),
+     @NamedQuery(
+                    name = PersonalTrainer.PERSONALS,
+                    query = "SELECT a FROM PersonalTrainer a ORDER BY a.nome"
+            ),
+    @NamedQuery(
+            name  = PersonalTrainer.CONSULTAR_POR_LOGIN,
+            query = "SELECT pt FROM Usuario pt WHERE pt.login LIKE ?1" 
+    ),
+    @NamedQuery(
+            name  = PersonalTrainer.CONSULTAR_POR_NOME,
+            query = "SELECT pt FROM Usuario pt WHERE pt.nome LIKE ?1" 
+    ),
+    
+    /*@NamedQuery(
+            name  = PersonalTrainer.ATUALIZAR_ALUNO_GAMBIARRA,
+            query = "UPDATE PersonalTrainer a SET a. = ?1 WHERE a.id = ?1" 
+    )*/
+    
 })
+
 
 public class PersonalTrainer extends Usuario implements Serializable {
 
@@ -49,6 +79,11 @@ public class PersonalTrainer extends Usuario implements Serializable {
     public static final String CONSULTAR_POR_LOGIN = "ConsultarPorLogin";
     public static final String QUANTIDADE_PERSONAL_TRAINER = "QuantidadePersonalTrainer";
     public static final String REMOVER_POR_ID = "RemoverPorID";
+    public static final String PERSONALS = "Personals";
+    public static final String CONSULTAR_POR_NOME = "ConsultarPorNome";
+    public static final String ATUALIZAR_ALUNO_GAMBIARRA = "AtualizarAluno";
+    public static final String MEUSALUNOS = "MeusAlunos";
+
     /*
     
      */
@@ -105,7 +140,7 @@ public class PersonalTrainer extends Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.personaltech.Exercicio[ id=" + id + " ]";
+        return "Personal";
     }
 
 }

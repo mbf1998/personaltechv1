@@ -32,7 +32,7 @@ import javax.validation.executable.ValidateOnExecution;
 
 /**
  *
- * @author michel
+ * @author MarcosBrasileiro
  */
 @Stateless(name = "ejb/ServicoAvaliacao")
 @LocalBean

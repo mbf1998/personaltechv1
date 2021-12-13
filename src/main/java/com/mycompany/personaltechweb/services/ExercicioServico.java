@@ -5,31 +5,33 @@
  */
 package com.mycompany.personaltechweb.services;
 
-import com.mycompany.personaltechweb.entities.Usuario;
-
-import static javax.ejb.TransactionAttributeType.REQUIRED;
-import static javax.ejb.TransactionAttributeType.SUPPORTS;
-import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
-import static javax.ejb.TransactionManagementType.CONTAINER;
-import static javax.persistence.PersistenceContextType.TRANSACTION;
-
+import com.mycompany.personaltechweb.entities.Exercicio;
+import static com.mycompany.personaltechweb.entities.Exercicio.EXERCICIO;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionManagement;
+import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
+import static javax.ejb.TransactionAttributeType.SUPPORTS;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import static javax.persistence.PersistenceContextType.TRANSACTION;
 import javax.persistence.TypedQuery;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import static javax.validation.executable.ExecutableType.ALL;
+import javax.validation.executable.ValidateOnExecution;
 
 /**
  *
- * @author MarcosBrasileiro
+ * @author T-Gamer
  */
-@TransactionManagement(CONTAINER)
-@TransactionAttribute(REQUIRED)
-public abstract class ServicoUsuario<T extends Usuario> {
-
+@Stateless(name = "ejb/ExercicioServico")
+@LocalBean
+@ValidateOnExecution(type = ALL)
+public abstract class ExercicioServico <T extends Exercicio>{
+    
     @PersistenceContext(name = "PersonalTechWebPU", type = TRANSACTION)
     protected EntityManager entityManager;
     protected Class<T> classe;
@@ -99,5 +101,10 @@ public abstract class ServicoUsuario<T extends Usuario> {
     protected List<T> getEntidades(String nomeQuery) {
         TypedQuery<T> query = entityManager.createNamedQuery(nomeQuery, classe);
         return query.getResultList();
+    }
+    
+    @PostConstruct
+    public void init() {
+       setClasse((Class<T>) Exercicio.class);
     }
 }

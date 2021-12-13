@@ -18,11 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
- * @author john
+ * @author MarcosBrasileiro
  */
 @Entity
 @Table(name = "TB_AV_PERG")
@@ -34,7 +33,6 @@ public class RespostasAvaliacao implements Serializable {
     private Long id;
     
     @NotNull
-    @NotBlank
     @Column(name = "TXT_RESP_ALUNO", nullable = false, length = 1000)
     private String txt_resposta;
     

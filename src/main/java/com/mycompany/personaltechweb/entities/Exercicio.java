@@ -13,11 +13,17 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author MarcosBrasileiro
+ */
 @Entity
 @Table(name = "TB_EXERCICIO")
 @NamedNativeQueries(
@@ -26,9 +32,20 @@ import javax.validation.constraints.Size;
                     name = "Exercicio.RetornaTipoExercicio",
                     query = "SELECT ex.ID, ex.TXT_NOME_EXERCICIO, ex.TXT_TIPO_EXERCICIO, a.TXT_NOME mapa FROM TB_EXERCICIO ex JOIN TB_USUARIO a ON ex.ID_ALUNO = a.ID WHERE ex.ID = ?1",
                     resultSetMapping = "mapping"
+            ),
+            @NamedNativeQuery(
+                    name = Exercicio.EXERCICIOSEALUNO,
+                    query = "SELECT * FROM ROOT.TB_EXERCICIO INNER JOIN ROOT.TB_ALUNO ON ROOT.TB_EXERCICIO.ID_ALUNO IS NULL",
+                    resultSetMapping = "mapping"
             )
         }
 )
+@NamedQueries(
+        {
+            @NamedQuery(
+                    name = Exercicio.EXERCICIO,
+                    query = "SELECT a FROM Exercicio a ORDER BY a.exercicio"
+            )})
 @SqlResultSetMapping(
         name = "mapping",
         entities = {
@@ -39,6 +56,8 @@ import javax.validation.constraints.Size;
         }
 )
 public class Exercicio implements Serializable {
+ public static final String EXERCICIO = "Exercicio";
+ public static final String EXERCICIOSEALUNO = "ExerciciosEAluno";
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

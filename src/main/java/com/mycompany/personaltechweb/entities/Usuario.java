@@ -29,13 +29,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
+
 
 /**
  *
- * @author john
+ * @author MarcosBrasileiro
  */
 @Entity
 @Table(name = "TB_USUARIO")
@@ -61,12 +60,10 @@ public abstract class Usuario implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     protected Long id;
 
-    @NotBlank
     @NotNull
     @Size(max = 50)
     @Column(name = "TXT_NOME", length = 50, nullable = false)
     private String nome;
-    @NotBlank
     @NotNull
     @Size(max = 50)
     @Column(name = "TXT_SOBRENOME", length = 50, nullable = false)
@@ -74,7 +71,6 @@ public abstract class Usuario implements Serializable {
     @CPF
     @Column(name = "TXT_CPF", length = 14, unique = true, nullable = false)
     private String cpf;
-    @NotBlank
     @NotNull
     @Size(min = 6, max = 30)
     @Pattern(
@@ -85,7 +81,6 @@ public abstract class Usuario implements Serializable {
     private String login;
     
     // mensagem deve vir de um arquivo de configuração, olhar exemplo do github e aula
-    @NotBlank
     @NotNull
     @Size(min = 6, max = 20)
     @Pattern(
@@ -95,11 +90,9 @@ public abstract class Usuario implements Serializable {
     @Column(name = "TXT_SENHA", length = 20, nullable = false)
     private String senha;
 
-    @Email
     @Column(name = "TXT_EMAIL", length = 50, nullable = false)
     private String email;
 
-    @NotBlank
     @Size(min = 1, max = 1)
     @Column(name = "TXT_SEXO", length = 1, nullable = false)
     private String sexo;
