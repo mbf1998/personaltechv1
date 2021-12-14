@@ -7,6 +7,7 @@ package com.mycompany.personaltechweb.beans;
 
 import com.mycompany.personaltechweb.entities.Aluno;
 import com.mycompany.personaltechweb.entities.PersonalTrainer;
+import com.mycompany.personaltechweb.services.AlunoServico;
 import com.mycompany.personaltechweb.services.PersonalTrainerServico;
 import java.io.Serializable;
 import java.util.List;
@@ -42,9 +43,9 @@ public class PersonalBean extends Bean<PersonalTrainer> implements Serializable 
     private List<PersonalTrainer> personals;
     private List<Aluno> personalsAluno;
     private Aluno novoAluno;
-
+    private AlunoServico as;
     public Aluno getNovoAluno() {
-        return novoAluno;
+        return as.getAlunos().get(0);
     }
 
     public void setNovoAluno(Aluno novoAluno) {
