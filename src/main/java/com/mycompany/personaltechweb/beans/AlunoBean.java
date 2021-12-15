@@ -108,7 +108,9 @@ public class AlunoBean extends Bean<Aluno> implements Serializable {
     public void setListaExercicioMock(List<Exercicio> listaExercicioMock) {
         this.listaExercicioMock = listaExercicioMock;
     }
-
+public String redirect(){
+    return "addExercicioAluno?faces-redirect=true";
+}
     
    
     
